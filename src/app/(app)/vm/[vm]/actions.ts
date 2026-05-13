@@ -2,6 +2,7 @@
 
 import { proxmoxClient, waitForTask } from "@/lib/proxmox";
 import type { Key } from "./schema";
+import { prisma } from "@/lib/prisma";
 
 export async function proxmoxVmAction(vmid: number, node: string, action: Key) {
   switch (action) {
@@ -20,6 +21,14 @@ export async function proxmoxVmAction(vmid: number, node: string, action: Key) {
         .status.shutdown.$post();
       const waitedShutdown = await waitForTask(node, shutdownResult);
       if (!waitedShutdown.success) throw new Error(waitedShutdown.error);
+      await prisma.vm.update({
+        where: {
+          id: vmid
+        },
+        data: {
+          status: "stopped"
+        }
+      });
       return waitedShutdown;
     case "reboot":
       const rebootResult = await proxmoxClient.nodes

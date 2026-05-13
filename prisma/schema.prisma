@@ -75,10 +75,9 @@ model Verification {
 }
 
 model Vm {
-  id        String   @id
+  id        Int      @id
   name      String
   node      String
-  proxmoxId Int
   userId    String
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   ip        String

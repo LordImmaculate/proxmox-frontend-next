@@ -6,21 +6,21 @@ import Link from "next/link";
 
 export async function Header() {
   const session = await auth.api.getSession({
-    headers: await headers(),
+    headers: await headers()
   });
   return (
-    <header className="w-full p-4 flex flex-row">
+    <header className="flex w-full flex-row p-4">
       <Link href="/">
         <Logo />
       </Link>
       <div className="ml-auto flex items-center gap-4">
         {session ? (
-          <a
+          <Link
             href="/vm/create"
             className={buttonVariants({ variant: "outline" })}
           >
             Create VM
-          </a>
+          </Link>
         ) : (
           <a
             href="/auth/signin"

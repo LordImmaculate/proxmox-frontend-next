@@ -4,9 +4,7 @@ import {
   CardHeader,
   CardTitle,
   CardDescription,
-  CardAction,
-  CardContent,
-  CardFooter
+  CardContent
 } from "./ui/card";
 import Link from "next/link";
 
