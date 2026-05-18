@@ -14,6 +14,7 @@ import { passwordSchema, PasswordSchema } from "./schema";
 import { toast } from "sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { authClient } from "@/lib/auth-client";
+import { Checkbox } from "@/components/ui/checkbox";
 
 export function PasswordForm({
   className,
@@ -23,7 +24,13 @@ export function PasswordForm({
   const form = useForm<PasswordSchema>({
     // @ts-expect-error weird zod schema
     resolver: zodResolver(passwordSchema),
-    mode: "onBlur"
+    mode: "onBlur",
+    defaultValues: {
+      currentPassword: "",
+      newPassword: "",
+      confirmPassword: "",
+      destroySessions: false
+    }
   });
 
   const onSubmit = form.handleSubmit(async (data) => {
@@ -116,9 +123,27 @@ export function PasswordForm({
           )}
         />
 
+        <Controller
+          name="destroySessions"
+          control={form.control}
+          render={({ field, fieldState }) => (
+            <Field orientation="horizontal" data-invalid={fieldState.invalid}>
+              <FieldLabel htmlFor="form-rhf-demo-destroy-sessions">
+                Log out on other devices
+              </FieldLabel>
+              <Checkbox
+                id="form-rhf-demo-destroy-sessions"
+                checked={field.value}
+                onCheckedChange={field.onChange}
+              />
+              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+            </Field>
+          )}
+        />
+
         <Field>
           <Button type="submit" disabled={form.formState.isSubmitting}>
-            Save Changes
+            Save
           </Button>
         </Field>
       </FieldGroup>
