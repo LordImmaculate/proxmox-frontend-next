@@ -1,7 +1,4 @@
-import { Button } from "@/components/ui/button";
-import { auth } from "@/lib/auth";
 import { checkSession } from "@/lib/utils-server";
-import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { EditProfileForm } from "./profile-form";
 import ClientButtons from "./client-buttons";

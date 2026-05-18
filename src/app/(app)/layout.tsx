@@ -4,7 +4,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <Header />
-      <main className="flex mt-20 items-center justify-center">{children}</main>
+      <main className="mt-20 flex items-center justify-center">{children}</main>
     </>
   );
 }

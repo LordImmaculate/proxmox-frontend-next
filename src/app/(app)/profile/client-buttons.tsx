@@ -5,10 +5,7 @@ import { ButtonGroup } from "@/components/ui/button-group";
 import {
   Popover,
   PopoverTrigger,
-  PopoverContent,
-  PopoverHeader,
-  PopoverTitle,
-  PopoverDescription
+  PopoverContent
 } from "@/components/ui/popover";
 import { authClient } from "@/lib/auth-client";
 import { KeyRound, LogOut } from "lucide-react";

@@ -59,7 +59,7 @@ export async function createVmAction(data: {
   try {
     const ip = `172.16.100.${newid}`;
 
-    const dbVm = await prisma.vm.create({
+    await prisma.vm.create({
       data: {
         id: newid,
         name: hostname,
