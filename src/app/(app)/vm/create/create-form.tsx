@@ -135,10 +135,7 @@ export function CreateForm({
         />
 
         <Field>
-          <Button
-            type="submit"
-            disabled={!form.formState.isValid || form.formState.isSubmitting}
-          >
+          <Button type="submit" disabled={form.formState.isSubmitting}>
             Create VM
           </Button>
         </Field>

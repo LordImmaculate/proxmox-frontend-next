@@ -49,6 +49,7 @@ export type UserMinAggregateOutputType = {
   allowedRam: number | null
   allowedVms: number | null
   allowedCpus: number | null
+  role: $Enums.Role | null
 }
 
 export type UserMaxAggregateOutputType = {
@@ -62,6 +63,7 @@ export type UserMaxAggregateOutputType = {
   allowedRam: number | null
   allowedVms: number | null
   allowedCpus: number | null
+  role: $Enums.Role | null
 }
 
 export type UserCountAggregateOutputType = {
@@ -75,6 +77,7 @@ export type UserCountAggregateOutputType = {
   allowedRam: number
   allowedVms: number
   allowedCpus: number
+  role: number
   _all: number
 }
 
@@ -102,6 +105,7 @@ export type UserMinAggregateInputType = {
   allowedRam?: true
   allowedVms?: true
   allowedCpus?: true
+  role?: true
 }
 
 export type UserMaxAggregateInputType = {
@@ -115,6 +119,7 @@ export type UserMaxAggregateInputType = {
   allowedRam?: true
   allowedVms?: true
   allowedCpus?: true
+  role?: true
 }
 
 export type UserCountAggregateInputType = {
@@ -128,6 +133,7 @@ export type UserCountAggregateInputType = {
   allowedRam?: true
   allowedVms?: true
   allowedCpus?: true
+  role?: true
   _all?: true
 }
 
@@ -228,6 +234,7 @@ export type UserGroupByOutputType = {
   allowedRam: number
   allowedVms: number
   allowedCpus: number
+  role: $Enums.Role
   _count: UserCountAggregateOutputType | null
   _avg: UserAvgAggregateOutputType | null
   _sum: UserSumAggregateOutputType | null
@@ -264,6 +271,7 @@ export type UserWhereInput = {
   allowedRam?: Prisma.IntFilter<"User"> | number
   allowedVms?: Prisma.IntFilter<"User"> | number
   allowedCpus?: Prisma.IntFilter<"User"> | number
+  role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
   sessions?: Prisma.SessionListRelationFilter
   accounts?: Prisma.AccountListRelationFilter
   vms?: Prisma.VmListRelationFilter
@@ -280,6 +288,7 @@ export type UserOrderByWithRelationInput = {
   allowedRam?: Prisma.SortOrder
   allowedVms?: Prisma.SortOrder
   allowedCpus?: Prisma.SortOrder
+  role?: Prisma.SortOrder
   sessions?: Prisma.SessionOrderByRelationAggregateInput
   accounts?: Prisma.AccountOrderByRelationAggregateInput
   vms?: Prisma.VmOrderByRelationAggregateInput
@@ -299,6 +308,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   allowedRam?: Prisma.IntFilter<"User"> | number
   allowedVms?: Prisma.IntFilter<"User"> | number
   allowedCpus?: Prisma.IntFilter<"User"> | number
+  role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
   sessions?: Prisma.SessionListRelationFilter
   accounts?: Prisma.AccountListRelationFilter
   vms?: Prisma.VmListRelationFilter
@@ -315,6 +325,7 @@ export type UserOrderByWithAggregationInput = {
   allowedRam?: Prisma.SortOrder
   allowedVms?: Prisma.SortOrder
   allowedCpus?: Prisma.SortOrder
+  role?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _avg?: Prisma.UserAvgOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
@@ -336,6 +347,7 @@ export type UserScalarWhereWithAggregatesInput = {
   allowedRam?: Prisma.IntWithAggregatesFilter<"User"> | number
   allowedVms?: Prisma.IntWithAggregatesFilter<"User"> | number
   allowedCpus?: Prisma.IntWithAggregatesFilter<"User"> | number
+  role?: Prisma.EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
 }
 
 export type UserCreateInput = {
@@ -349,6 +361,7 @@ export type UserCreateInput = {
   allowedRam?: number
   allowedVms?: number
   allowedCpus?: number
+  role?: $Enums.Role
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   vms?: Prisma.VmCreateNestedManyWithoutUserInput
@@ -365,6 +378,7 @@ export type UserUncheckedCreateInput = {
   allowedRam?: number
   allowedVms?: number
   allowedCpus?: number
+  role?: $Enums.Role
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   vms?: Prisma.VmUncheckedCreateNestedManyWithoutUserInput
@@ -381,6 +395,7 @@ export type UserUpdateInput = {
   allowedRam?: Prisma.IntFieldUpdateOperationsInput | number
   allowedVms?: Prisma.IntFieldUpdateOperationsInput | number
   allowedCpus?: Prisma.IntFieldUpdateOperationsInput | number
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   vms?: Prisma.VmUpdateManyWithoutUserNestedInput
@@ -397,6 +412,7 @@ export type UserUncheckedUpdateInput = {
   allowedRam?: Prisma.IntFieldUpdateOperationsInput | number
   allowedVms?: Prisma.IntFieldUpdateOperationsInput | number
   allowedCpus?: Prisma.IntFieldUpdateOperationsInput | number
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   vms?: Prisma.VmUncheckedUpdateManyWithoutUserNestedInput
@@ -413,6 +429,7 @@ export type UserCreateManyInput = {
   allowedRam?: number
   allowedVms?: number
   allowedCpus?: number
+  role?: $Enums.Role
 }
 
 export type UserUpdateManyMutationInput = {
@@ -426,6 +443,7 @@ export type UserUpdateManyMutationInput = {
   allowedRam?: Prisma.IntFieldUpdateOperationsInput | number
   allowedVms?: Prisma.IntFieldUpdateOperationsInput | number
   allowedCpus?: Prisma.IntFieldUpdateOperationsInput | number
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
 }
 
 export type UserUncheckedUpdateManyInput = {
@@ -439,6 +457,7 @@ export type UserUncheckedUpdateManyInput = {
   allowedRam?: Prisma.IntFieldUpdateOperationsInput | number
   allowedVms?: Prisma.IntFieldUpdateOperationsInput | number
   allowedCpus?: Prisma.IntFieldUpdateOperationsInput | number
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
 }
 
 export type UserCountOrderByAggregateInput = {
@@ -452,6 +471,7 @@ export type UserCountOrderByAggregateInput = {
   allowedRam?: Prisma.SortOrder
   allowedVms?: Prisma.SortOrder
   allowedCpus?: Prisma.SortOrder
+  role?: Prisma.SortOrder
 }
 
 export type UserAvgOrderByAggregateInput = {
@@ -471,6 +491,7 @@ export type UserMaxOrderByAggregateInput = {
   allowedRam?: Prisma.SortOrder
   allowedVms?: Prisma.SortOrder
   allowedCpus?: Prisma.SortOrder
+  role?: Prisma.SortOrder
 }
 
 export type UserMinOrderByAggregateInput = {
@@ -484,6 +505,7 @@ export type UserMinOrderByAggregateInput = {
   allowedRam?: Prisma.SortOrder
   allowedVms?: Prisma.SortOrder
   allowedCpus?: Prisma.SortOrder
+  role?: Prisma.SortOrder
 }
 
 export type UserSumOrderByAggregateInput = {
@@ -519,6 +541,10 @@ export type IntFieldUpdateOperationsInput = {
   decrement?: number
   multiply?: number
   divide?: number
+}
+
+export type EnumRoleFieldUpdateOperationsInput = {
+  set?: $Enums.Role
 }
 
 export type UserCreateNestedOneWithoutSessionsInput = {
@@ -574,6 +600,7 @@ export type UserCreateWithoutSessionsInput = {
   allowedRam?: number
   allowedVms?: number
   allowedCpus?: number
+  role?: $Enums.Role
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   vms?: Prisma.VmCreateNestedManyWithoutUserInput
 }
@@ -589,6 +616,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   allowedRam?: number
   allowedVms?: number
   allowedCpus?: number
+  role?: $Enums.Role
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   vms?: Prisma.VmUncheckedCreateNestedManyWithoutUserInput
 }
@@ -620,6 +648,7 @@ export type UserUpdateWithoutSessionsInput = {
   allowedRam?: Prisma.IntFieldUpdateOperationsInput | number
   allowedVms?: Prisma.IntFieldUpdateOperationsInput | number
   allowedCpus?: Prisma.IntFieldUpdateOperationsInput | number
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   vms?: Prisma.VmUpdateManyWithoutUserNestedInput
 }
@@ -635,6 +664,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   allowedRam?: Prisma.IntFieldUpdateOperationsInput | number
   allowedVms?: Prisma.IntFieldUpdateOperationsInput | number
   allowedCpus?: Prisma.IntFieldUpdateOperationsInput | number
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   vms?: Prisma.VmUncheckedUpdateManyWithoutUserNestedInput
 }
@@ -650,6 +680,7 @@ export type UserCreateWithoutAccountsInput = {
   allowedRam?: number
   allowedVms?: number
   allowedCpus?: number
+  role?: $Enums.Role
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   vms?: Prisma.VmCreateNestedManyWithoutUserInput
 }
@@ -665,6 +696,7 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   allowedRam?: number
   allowedVms?: number
   allowedCpus?: number
+  role?: $Enums.Role
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   vms?: Prisma.VmUncheckedCreateNestedManyWithoutUserInput
 }
@@ -696,6 +728,7 @@ export type UserUpdateWithoutAccountsInput = {
   allowedRam?: Prisma.IntFieldUpdateOperationsInput | number
   allowedVms?: Prisma.IntFieldUpdateOperationsInput | number
   allowedCpus?: Prisma.IntFieldUpdateOperationsInput | number
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   vms?: Prisma.VmUpdateManyWithoutUserNestedInput
 }
@@ -711,6 +744,7 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   allowedRam?: Prisma.IntFieldUpdateOperationsInput | number
   allowedVms?: Prisma.IntFieldUpdateOperationsInput | number
   allowedCpus?: Prisma.IntFieldUpdateOperationsInput | number
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   vms?: Prisma.VmUncheckedUpdateManyWithoutUserNestedInput
 }
@@ -726,6 +760,7 @@ export type UserCreateWithoutVmsInput = {
   allowedRam?: number
   allowedVms?: number
   allowedCpus?: number
+  role?: $Enums.Role
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
 }
@@ -741,6 +776,7 @@ export type UserUncheckedCreateWithoutVmsInput = {
   allowedRam?: number
   allowedVms?: number
   allowedCpus?: number
+  role?: $Enums.Role
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
 }
@@ -772,6 +808,7 @@ export type UserUpdateWithoutVmsInput = {
   allowedRam?: Prisma.IntFieldUpdateOperationsInput | number
   allowedVms?: Prisma.IntFieldUpdateOperationsInput | number
   allowedCpus?: Prisma.IntFieldUpdateOperationsInput | number
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
 }
@@ -787,6 +824,7 @@ export type UserUncheckedUpdateWithoutVmsInput = {
   allowedRam?: Prisma.IntFieldUpdateOperationsInput | number
   allowedVms?: Prisma.IntFieldUpdateOperationsInput | number
   allowedCpus?: Prisma.IntFieldUpdateOperationsInput | number
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
 }
@@ -851,6 +889,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   allowedRam?: boolean
   allowedVms?: boolean
   allowedCpus?: boolean
+  role?: boolean
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   vms?: boolean | Prisma.User$vmsArgs<ExtArgs>
@@ -868,6 +907,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   allowedRam?: boolean
   allowedVms?: boolean
   allowedCpus?: boolean
+  role?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -881,6 +921,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   allowedRam?: boolean
   allowedVms?: boolean
   allowedCpus?: boolean
+  role?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectScalar = {
@@ -894,9 +935,10 @@ export type UserSelectScalar = {
   allowedRam?: boolean
   allowedVms?: boolean
   allowedCpus?: boolean
+  role?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "createdAt" | "updatedAt" | "allowedRam" | "allowedVms" | "allowedCpus", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "createdAt" | "updatedAt" | "allowedRam" | "allowedVms" | "allowedCpus" | "role", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
@@ -924,6 +966,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     allowedRam: number
     allowedVms: number
     allowedCpus: number
+    role: $Enums.Role
   }, ExtArgs["result"]["user"]>
   composites: {}
 }
@@ -1360,6 +1403,7 @@ export interface UserFieldRefs {
   readonly allowedRam: Prisma.FieldRef<"User", 'Int'>
   readonly allowedVms: Prisma.FieldRef<"User", 'Int'>
   readonly allowedCpus: Prisma.FieldRef<"User", 'Int'>
+  readonly role: Prisma.FieldRef<"User", 'Role'>
 }
     
 

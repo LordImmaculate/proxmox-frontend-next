@@ -6,7 +6,7 @@ import {
   Field,
   FieldError,
   FieldGroup,
-  FieldLabel,
+  FieldLabel
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { authClient } from "@/lib/auth-client";
@@ -17,7 +17,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 const formSchema = z.object({
   email: z.string().email("Invalid email address."),
-  password: z.string().min(8, "Password must be at least 8 characters."),
+  password: z.string().min(8, "Password must be at least 8 characters.")
 });
 
 export function LoginForm({
@@ -27,10 +27,11 @@ export function LoginForm({
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     mode: "onBlur",
+    reValidateMode: "onChange",
     defaultValues: {
       email: "",
-      password: "",
-    },
+      password: ""
+    }
   });
 
   async function onSubmit(data: z.infer<typeof formSchema>) {
@@ -38,7 +39,7 @@ export function LoginForm({
       email: data.email,
       password: data.password,
       callbackURL: "/",
-      rememberMe: true,
+      rememberMe: true
     });
     if (error) toast.error(error.message);
     console.log(error);
@@ -95,10 +96,7 @@ export function LoginForm({
         />
 
         <Field>
-          <Button
-            type="submit"
-            disabled={!form.formState.isValid || form.formState.isSubmitting}
-          >
+          <Button type="submit" disabled={form.formState.isSubmitting}>
             Login
           </Button>
         </Field>
