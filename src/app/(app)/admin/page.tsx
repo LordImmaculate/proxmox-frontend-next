@@ -6,8 +6,11 @@ import {
   CardHeader,
   CardTitle,
   CardDescription,
-  CardContent
+  CardContent,
+  CardFooter
 } from "@/components/ui/card";
+import Link from "next/link";
+import { buttonVariants } from "@/components/ui/button";
 
 export default async function Page() {
   const session = await checkSession();
@@ -39,6 +42,11 @@ export default async function Page() {
           <CardContent>
             <div className="text-3xl font-semibold">{totalUsers}</div>
           </CardContent>
+          <CardFooter>
+            <Link href="/admin/users" className={buttonVariants()}>
+              View Users
+            </Link>
+          </CardFooter>
         </Card>
 
         <Card>
@@ -49,6 +57,11 @@ export default async function Page() {
           <CardContent>
             <div className="text-3xl font-semibold">{totalVms}</div>
           </CardContent>
+          <CardFooter>
+            <Link href="/admin/vms" className={buttonVariants()}>
+              View VMs
+            </Link>
+          </CardFooter>
         </Card>
 
         <Card>
