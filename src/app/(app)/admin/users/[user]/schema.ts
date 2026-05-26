@@ -25,7 +25,6 @@ export const passwordSchema = z
       .max(255, "Password must be 255 characters or less"),
     confirmPassword: z
       .string()
-      .min(8, "Password must be at least 8 characters")
       .max(255, "Password must be 255 characters or less"),
     destroySessions: z.boolean().default(false)
   })

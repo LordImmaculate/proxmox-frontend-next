@@ -8,7 +8,8 @@ export const auth = betterAuth({
     provider: "postgresql"
   }),
   emailAndPassword: {
-    enabled: true
+    enabled: true,
+    disableSignUp: process.env.ALLOW_SIGN_UP !== "true"
   },
   plugins: [admin()]
 });

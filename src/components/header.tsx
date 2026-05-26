@@ -17,7 +17,7 @@ export async function Header() {
   const session = await checkSession();
   return (
     <header className="flex w-full flex-row items-center gap-4 p-4">
-      <Link href="/">
+      <Link href="/vms">
         <Logo />
       </Link>
       <Crumbs />

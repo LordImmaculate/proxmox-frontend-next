@@ -1,6 +1,6 @@
 services:
   app:
-    image: test
+    image: ghcr.io/lordimmaculate/proxmox-frontend-next:latest
     env_file:
       - .env
     ports:
