@@ -17,19 +17,16 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 export function EditProfileForm({
   name,
-  email,
   className,
   ...props
 }: React.ComponentProps<"form"> & {
   name: string;
-  email: string;
 }) {
   const form = useForm<ProfileSchema>({
     resolver: zodResolver(profileSchema),
     mode: "onBlur",
     defaultValues: {
-      name,
-      email
+      name: name ?? ""
     }
   });
 
@@ -37,7 +34,6 @@ export function EditProfileForm({
     toast.promise(
       editProfileAction(data).then((result) => {
         if (!result.success) throw new Error(result.error);
-
         return result;
       }),
       {
@@ -66,31 +62,12 @@ export function EditProfileForm({
           control={form.control}
           render={({ field, fieldState }) => (
             <Field data-invalid={fieldState.invalid}>
-              <FieldLabel htmlFor="form-rhf-demo-hostname">Name</FieldLabel>
+              <FieldLabel htmlFor="form-rhf-demo-name">Name</FieldLabel>
               <Input
                 {...field}
-                id="form-rhf-demo-hostname"
+                id="form-rhf-demo-name"
                 aria-invalid={fieldState.invalid}
                 placeholder="John Doe"
-                autoComplete="off"
-              />
-              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-            </Field>
-          )}
-        />
-
-        <Controller
-          name="email"
-          control={form.control}
-          render={({ field, fieldState }) => (
-            <Field data-invalid={fieldState.invalid}>
-              <FieldLabel htmlFor="form-rhf-demo-email">Email</FieldLabel>
-              <Input
-                {...field}
-                id="form-rhf-demo-email"
-                aria-invalid={fieldState.invalid}
-                placeholder="m@example.com"
-                type="email"
                 autoComplete="off"
               />
               {fieldState.invalid && <FieldError errors={[fieldState.error]} />}

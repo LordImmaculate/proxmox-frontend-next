@@ -6,7 +6,6 @@ import { profileSchema } from "./schema";
 import { prisma } from "@/lib/prisma";
 
 export async function editProfileAction(data: {
-  email: string;
   name: string;
 }): Promise<{ success: false; error: string } | { success: true }> {
   const session = await checkSession();
@@ -16,21 +15,12 @@ export async function editProfileAction(data: {
 
   if (!parsed.success) return { success: false, error: "Invalid form data" };
 
-  const { name, email } = parsed.data;
-
-  const existingUser = await prisma.user.findUnique({
-    where: { email },
-    select: { id: true }
-  });
-
-  if (existingUser && existingUser.id !== session.data.user.id)
-    return { success: false, error: "Email already in use" };
+  const { name } = parsed.data;
 
   await prisma.user.update({
     where: { id: session.data.user.id },
     data: {
-      name,
-      email
+      name
     }
   });
 

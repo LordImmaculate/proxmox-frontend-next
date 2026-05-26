@@ -1,28 +1,39 @@
-import { LoginForm } from "@/app/auth/signin/login-form";
-import { Logo } from "@/components/logo";
-import Image from "next/image";
+"use client";
+import { H1 } from "@/components/typography";
+import { Button } from "@/components/ui/button";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { authClient } from "@/lib/auth-client";
+import { toast } from "sonner";
 
 export default function LoginPage() {
+  async function handleGitHubSignIn() {
+    const { error } = await authClient.signIn.social({
+      provider: "github"
+    });
+
+    if (error) {
+      toast.error("Failed to sign in with GitHub");
+      console.error("GitHub sign-in error:", error);
+    }
+  }
   return (
-    <div className="grid min-h-svh lg:grid-cols-2">
-      <div className="flex flex-col gap-4 p-6 md:p-10">
-        <Logo />
-        <div className="flex flex-1 items-center justify-center">
-          <div className="w-full max-w-xs">
-            <LoginForm />
-          </div>
-        </div>
-      </div>
-      <div className="relative hidden bg-muted lg:block">
-        <Image
-          src="/mountains.png"
-          alt="Image"
-          width={500}
-          height={500}
-          loading="eager"
-          className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
-        />
-      </div>
+    <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
+      <Card className="w-full max-w-sm">
+        <CardHeader>
+          <CardTitle>
+            <H1>Sign In</H1>
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="mt-2 flex">
+          <Button
+            variant="outline"
+            className="w-full"
+            onClick={handleGitHubSignIn}
+          >
+            Sign in with GitHub
+          </Button>
+        </CardContent>
+      </Card>
     </div>
   );
 }

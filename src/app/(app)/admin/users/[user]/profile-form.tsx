@@ -30,7 +30,6 @@ export function EditProfileForm({
     mode: "onBlur",
     defaultValues: {
       name: user.name || "",
-      email: user.email,
       allowedRam: user.allowedRam
     }
   });
@@ -82,25 +81,6 @@ export function EditProfileForm({
         />
 
         <Controller
-          name="email"
-          control={form.control}
-          render={({ field, fieldState }) => (
-            <Field data-invalid={fieldState.invalid}>
-              <FieldLabel htmlFor="form-rhf-demo-email">Email</FieldLabel>
-              <Input
-                {...field}
-                id="form-rhf-demo-email"
-                aria-invalid={fieldState.invalid}
-                placeholder="m@example.com"
-                type="email"
-                autoComplete="off"
-              />
-              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-            </Field>
-          )}
-        />
-
-        <Controller
           name="allowedRam"
           control={form.control}
           render={({ field, fieldState }) => (
@@ -112,7 +92,7 @@ export function EditProfileForm({
                 </span>
               </FieldLabel>
               <Slider
-                min={1024}
+                min={0}
                 max={24576}
                 step={512}
                 value={[field.value]}

@@ -12,7 +12,6 @@ import { cap } from "@/lib/utils";
 import { checkSession } from "@/lib/utils-server";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import AddUserButton from "./add-user-button";
 
 export default async function Page() {
   const session = await checkSession();
@@ -34,7 +33,6 @@ export default async function Page() {
     <div className="flex w-full flex-col items-center gap-4">
       <div className="relative flex w-full max-w-4xl items-center justify-center">
         <H1>User Management</H1>
-        <AddUserButton />
       </div>
 
       <Table className="mx-auto w-full max-w-4xl">

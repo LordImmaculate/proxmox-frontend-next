@@ -1,16 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogTrigger,
-  DialogContent,
-  DialogHeader,
-  DialogTitle
-} from "@/components/ui/dialog";
-import { KeyRound, VenetianMask } from "lucide-react";
-import { PasswordForm } from "./password-form";
-import { useState } from "react";
+import { VenetianMask } from "lucide-react";
 import { ButtonGroup } from "@/components/ui/button-group";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "sonner";
@@ -29,7 +20,6 @@ export default function ClientButtons({
   userId: string;
   allowImpersonate: boolean;
 }) {
-  const [dialogOpen, setDialogOpen] = useState(false);
   const router = useRouter();
 
   async function handleImpersonate() {
@@ -67,49 +57,30 @@ export default function ClientButtons({
   }
 
   return (
-    <div className="flex flex-col gap-2">
-      <ButtonGroup className="w-full">
-        <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-          <DialogTrigger asChild>
-            <Button variant="outline" className="flex-1">
-              <KeyRound />
-              Change Password
-            </Button>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Change Password</DialogTitle>
-            </DialogHeader>
-            <PasswordForm setDialogOpen={setDialogOpen} userId={userId} />
-          </DialogContent>
-        </Dialog>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <span
-              data-slot="button"
-              className="inline-flex flex-1 [&>button]:rounded-l-none [&>button]:rounded-r-md [&>button]:border-l-0"
-            >
-              <Button
-                variant="outline"
-                className="w-full"
-                onClick={handleImpersonate}
-                disabled={!allowImpersonate}
-              >
-                <VenetianMask />
-                Impersonate
-              </Button>
-            </span>
-          </TooltipTrigger>
-          <TooltipContent className={allowImpersonate ? "hidden" : ""}>
-            You can&apos;t impersonate admins.
-          </TooltipContent>
-        </Tooltip>
-      </ButtonGroup>
+    <ButtonGroup className="w-full">
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button
+            variant="outline"
+            style={{
+              opacity: allowImpersonate ? 1 : 0.5
+            }}
+            className="flex-1"
+            onClick={allowImpersonate ? handleImpersonate : undefined}
+          >
+            <VenetianMask />
+            Impersonate
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent className={allowImpersonate ? "hidden" : ""}>
+          You can&apos;t impersonate admins.
+        </TooltipContent>
+      </Tooltip>
       <PopoverWarning action={handleDelete}>
-        <Button variant="destructive" className="w-full" data-slot="button">
+        <Button variant="destructive" className="flex-1" data-slot="button">
           Delete User
         </Button>
       </PopoverWarning>
-    </div>
+    </ButtonGroup>
   );
 }
