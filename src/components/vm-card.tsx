@@ -4,15 +4,17 @@ import {
   CardHeader,
   CardTitle,
   CardDescription,
-  CardContent
+  CardContent,
+  CardFooter
 } from "./ui/card";
 import Link from "next/link";
 
 type Props = {
   vm: Vm;
+  ownerName?: string;
 };
 
-export default function VMCard({ vm }: Props) {
+export default async function VMCard({ vm, ownerName }: Props) {
   return (
     <Card>
       <CardHeader>
@@ -28,6 +30,13 @@ export default function VMCard({ vm }: Props) {
         <p>RAM: {vm.ram / 1024} GiB</p>
         <p>vCPUs: {vm.cpu}</p>
       </CardContent>
+      {ownerName && (
+        <CardFooter>
+          <Link className="hover:underline" href={`/admin/users/${vm.userId}`}>
+            {ownerName}
+          </Link>
+        </CardFooter>
+      )}
     </Card>
   );
 }

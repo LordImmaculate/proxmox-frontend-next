@@ -19,7 +19,9 @@ export default async function Page() {
   if (!session.success) redirect("/auth/signin");
   if (session.data.user.role !== "admin") redirect("/");
 
-  const vms = await prisma.vm.findMany();
+  const vms = await prisma.vm.findMany({
+    include: { user: { select: { name: true } } }
+  });
 
   if (vms.length === 0)
     return (
@@ -44,7 +46,7 @@ export default async function Page() {
   return (
     <div className="flex flex-row gap-4">
       {vms.map((vm) => (
-        <VMCard key={vm.id} vm={vm} />
+        <VMCard key={vm.id} vm={vm} ownerName={vm.user.name} />
       ))}
     </div>
   );
