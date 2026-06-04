@@ -1,20 +1,17 @@
 "use server";
 
-import { createVmSchema } from "./schema";
+import { CreateVmSchema, createVmSchema } from "./schema";
 import { prisma } from "@/lib/prisma";
 import { proxmoxClient, waitForTask } from "@/lib/proxmox";
 import { revalidatePath } from "next/cache";
 import { checkSession } from "@/lib/utils-server";
 
-export async function createVmAction(data: {
-  hostname: string;
-  sshKey: string;
-  ram: number;
-}): Promise<
+export async function createVmAction(
+  data: CreateVmSchema
+): Promise<
   { success: false; error: string } | { success: true; vmId: number }
 > {
   const session = await checkSession();
-
   if (!session.success) return { success: false, error: "Unauthorized" };
 
   const user = await prisma.user.findUnique({

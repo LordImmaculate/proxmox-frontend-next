@@ -1,11 +1,13 @@
 "use server";
 
 import { proxmoxClient, waitForTask } from "@/lib/proxmox";
-import type { Key } from "./schema";
+import { shareSchema, type Key, type ShareSchema } from "./schema";
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { checkSession } from "@/lib/utils-server";
+import { ShareVMTemplate } from "@/components/email/share-vm";
+import { resend } from "@/lib/resend";
 
 export async function proxmoxVmAction(vmid: number, node: string, action: Key) {
   const session = await checkSession();
@@ -123,5 +125,76 @@ export async function proxmoxVmAction(vmid: number, node: string, action: Key) {
       });
       revalidatePath("/");
       redirect("/");
+  }
+}
+
+export async function inviteAction(
+  data: ShareSchema & { vmId: number }
+): Promise<{ success: true } | { success: false; error: string }> {
+  const session = await checkSession();
+  if (!session.success) redirect("/auth/signin");
+
+  const result = shareSchema.safeParse(data);
+
+  if (!result.success)
+    return { success: false, error: "Invalid email address" };
+
+  const { email } = result.data;
+
+  if (!email.endsWith(`@${process.env.USER_DOMAIN}`))
+    return {
+      success: false,
+      error:
+        "This user is not part of the organization and cannot be shared with"
+    };
+
+  const user = await prisma.user.findUnique({
+    where: { email }
+  });
+
+  if (!user) return { success: false, error: "User not found" };
+  if (user.id === session.data.user.id)
+    return { success: false, error: "You cannot share a VM with yourself" };
+
+  const vm = await prisma.vm.findUnique({
+    where: { id: data.vmId }
+  });
+
+  if (!vm) return { success: false, error: "VM not found" };
+
+  if (vm.userId !== session.data.user.id && session.data.user.role !== "admin")
+    return {
+      success: false,
+      error: "You do not have permission to share this VM"
+    };
+
+  const { id: sharedVmId } = await prisma.sharedVms.create({
+    data: {
+      vmId: data.vmId,
+      userId: user.id,
+      sharedById: session.data.user.id
+    }
+  });
+
+  try {
+    const { error } = await resend.emails.send({
+      from: "TI-ICT VMs <noreply@ti-ict.be>",
+      to: [email],
+      subject: "You've been invited to access a VM",
+      react: ShareVMTemplate({
+        name: user.name,
+        sharedBy: session.data.user.name,
+        vmName: vm.name,
+        acceptId: sharedVmId
+      })
+    });
+
+    if (error) {
+      return { success: false, error: error.message };
+    }
+
+    return { success: true };
+  } catch {
+    return { success: false, error: "Failed to send invitation email" };
   }
 }

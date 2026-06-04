@@ -1,4 +1,5 @@
 import { Play, Power, RotateCw, Square, Trash } from "lucide-react";
+import { z } from "zod";
 
 export const vmActions: {
   key: string;
@@ -40,6 +41,15 @@ export const vmActions: {
   }
 ] as const;
 
+export const shareSchema = z.object({
+  email: z
+    .email()
+    .min(1, "Email is required")
+    .max(255, "Email must be less than 255 characters")
+});
+
 export type VmAction = (typeof vmActions)[number];
 
 export type Key = (typeof vmActions)[number]["key"];
+
+export type ShareSchema = z.infer<typeof shareSchema>;

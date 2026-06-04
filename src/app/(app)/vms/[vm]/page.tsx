@@ -12,6 +12,7 @@ import {
 import { Button } from "@/components/ui/button";
 import CopyButton from "@/components/copy-button";
 import { checkSession } from "@/lib/utils-server";
+import ShareButton from "./share-button";
 
 export default async function Page({
   params
@@ -84,7 +85,10 @@ export default async function Page({
           </ButtonGroup>
         </div>
       </div>
-      <H2 className="mt-5">Details</H2>
+      <H2 className="items-cxenter mt-5 flex w-full flex-row gap-4">
+        Details
+        <ShareButton vmId={dbVm.id} domain={process.env.USER_DOMAIN!} />
+      </H2>
       <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
         <div className="rounded-md border p-4">
           <h3 className="text-lg font-medium">RAM</h3>
