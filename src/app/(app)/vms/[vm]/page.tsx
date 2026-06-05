@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import CopyButton from "@/components/copy-button";
 import { checkSession, resolveVm } from "@/lib/utils-server";
 import ShareButton from "./share-button";
+import { prisma } from "@/lib/prisma";
 
 export default async function Page({
   params
@@ -29,6 +30,10 @@ export default async function Page({
 
   const vm = await resolveVm(numberVm, session.data.user);
   if (!vm) redirect("/");
+
+  const owner = vm.shared
+    ? await prisma.user.findUnique({ where: { id: vm.userId } })
+    : session.data.user;
 
   const sshCommand = `ssh ${vm.username}@${vm.ip}`;
 
@@ -77,9 +82,13 @@ export default async function Page({
           </ButtonGroup>
         </div>
       </div>
-      <H2 className="items-cxenter mt-5 flex w-full flex-row gap-4">
+      <H2 className="mt-5 flex w-full flex-row items-center gap-4">
         Details
-        {!vm.shared && (
+        {vm.shared ? (
+          <p className="ml-auto text-sm text-muted-foreground">
+            Shared by: {owner?.name}
+          </p>
+        ) : (
           <ShareButton vmId={vm.id} domain={process.env.USER_DOMAIN!} />
         )}
       </H2>
