@@ -44,9 +44,9 @@ export default async function Page() {
     : "unknown";
 
   return (
-    <div className="flex min-h-screen flex-col p-6">
+    <div className="flex flex-col p-6">
       <h1 className="mb-6 text-2xl font-bold">Admin Dashboard</h1>
-      <div className="flex-grow">
+      <div className="grow">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
           <Card>
             <CardHeader>
