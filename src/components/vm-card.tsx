@@ -18,7 +18,7 @@ type Props = {
 
 export default async function VMCard({ vm, ownerName }: Props) {
   return (
-    <Card className="max-w-64 min-w-64">
+    <Card className="w-fit">
       <CardHeader>
         <CardTitle>
           <span className="flex- flex flex-row items-center gap-2">
