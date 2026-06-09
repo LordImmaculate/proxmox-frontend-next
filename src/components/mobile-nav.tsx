@@ -12,7 +12,7 @@ import {
 import { HeaderContents } from "./header-contents";
 import Crumbs from "./crumbs";
 import { Logo } from "./logo";
-import { X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import type { auth } from "@/lib/auth";
 
@@ -23,7 +23,11 @@ export function MobileNav({
 }) {
   return (
     <Drawer direction="bottom">
-      <DrawerTrigger asChild></DrawerTrigger>
+      <DrawerTrigger asChild>
+        <Button variant="outline" size="icon" className="ml-auto md:hidden">
+          <Menu />
+        </Button>
+      </DrawerTrigger>
       <DrawerContent>
         <DrawerHeader className="flex-row items-center gap-4">
           <DrawerTitle>
@@ -38,7 +42,7 @@ export function MobileNav({
           </DrawerClose>
         </DrawerHeader>
         <div className="flex flex-col items-center gap-8 py-20">
-          <Crumbs className="block md:hidden" />
+          <Crumbs />
           <div className="flex flex-row items-center gap-4">
             <HeaderContents session={session} />
           </div>
