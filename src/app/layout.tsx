@@ -6,6 +6,8 @@ import { ThemeProvider } from "next-themes";
 import { Toaster } from "sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { TopLoader } from "@/components/toploader";
+import { NextIntlClientProvider } from "next-intl";
+import { getLocale, getMessages } from "next-intl/server";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -24,14 +26,17 @@ export const metadata: Metadata = {
   description: "Manage your TI-ICT VMs with ease using our intuitive interface."
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
+  const messages = await getMessages();
+
   return (
     <html
-      lang="en"
+      lang={locale}
       className={cn(
         "h-full",
         "antialiased",
@@ -53,8 +58,11 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <TopLoader />
-            {children} <Toaster />
+            <NextIntlClientProvider messages={messages}>
+              <TopLoader />
+              {children}
+            </NextIntlClientProvider>
+            <Toaster />
           </ThemeProvider>
         </TooltipProvider>
       </body>

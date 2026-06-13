@@ -12,6 +12,7 @@ import {
 import { HeaderContents } from "./header-contents";
 import Crumbs from "./crumbs";
 import { Logo } from "./logo";
+import { LocaleSwitcher } from "./locale-switcher";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import type { auth } from "@/lib/auth";
@@ -44,6 +45,7 @@ export function MobileNav({
         <div className="flex flex-col items-center gap-8 py-20">
           <Crumbs />
           <div className="flex flex-row items-center gap-4">
+            <LocaleSwitcher />
             <HeaderContents session={session} />
           </div>
         </div>

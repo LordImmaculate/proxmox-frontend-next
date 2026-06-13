@@ -9,20 +9,22 @@ import {
   BreadcrumbSeparator
 } from "./ui/breadcrumb";
 import Link from "next/link";
-
-const labels: Record<string, string[]> = {
-  admin: ["Admin"],
-  users: ["User Management", "User"],
-  vms: ["Virtual Machines", "VM"],
-  create: ["Create"],
-  profile: ["Profile"]
-};
+import { useTranslations } from "next-intl";
 
 export default function Crumbs({
   ...props
 }: React.ComponentProps<typeof Breadcrumb>) {
+  const t = useTranslations("breadcrumbs");
   const pathname = usePathname();
   const segments = pathname.split("/").filter(Boolean);
+
+  const labelKeys: Record<string, [string, string?]> = {
+    admin: ["admin"],
+    users: ["user_management", "user"],
+    vms: ["virtual_machines", "vm"],
+    create: ["create"],
+    profile: ["profile"]
+  };
 
   return (
     <Breadcrumb {...props}>
@@ -30,9 +32,10 @@ export default function Crumbs({
         {segments.map((segment, index) => {
           const href = "/" + segments.slice(0, index + 1).join("/");
           const isLast = index === segments.length - 1;
-          // Try to find a label for the current segment, falling back to the previous segment's singular form, and finally to "Home"
-          const label =
-            labels[segment]?.[0] || labels[segments[index - 1]]?.[1] || "Home";
+          const keys = labelKeys[segment];
+          const labelKey =
+            keys?.[0] || labelKeys[segments[index - 1]]?.[1] || "home";
+          const label = t(labelKey);
 
           return (
             <div key={href} className="flex items-center gap-1">

@@ -1,26 +1,35 @@
+import { getTranslations } from "next-intl/server";
+
 type Props = {
   name: string;
   sharedBy: string;
   vmName: string;
   acceptId: string;
+  locale: string;
 };
 
-export function ShareVMTemplate({ name, sharedBy, vmName, acceptId }: Props) {
+export async function ShareVMTemplate({
+  name,
+  sharedBy,
+  vmName,
+  acceptId,
+  locale
+}: Props) {
+  const t = await getTranslations({ locale, namespace: "email.share_vm" });
+
   return (
     <div>
-      <h1>Hello, {name}!</h1>
+      <h1>{t("greeting", { name })}</h1>
+      <p>{t("body", { vmName, sharedBy })}</p>
       <p>
-        You have been invited to the VM &quot;{vmName}&quot; by {sharedBy}.
-      </p>
-      <p>
-        Accept the invite here:{" "}
+        {t("accept_here")}
         <a href={`${process.env.BETTER_AUTH_URL}/vms/accept/${acceptId}`}>
-          Accept
+          {t("accept")}
         </a>
       </p>
-      <p>You have 1 day to accept the invite.</p>
-      <p>Best regards,</p>
-      <p>TI-ICT VMs Team</p>
+      <p>{t("expires")}</p>
+      <p>{t("regards")}</p>
+      <p>{t("team")}</p>
     </div>
   );
 }

@@ -10,6 +10,7 @@ import {
 import Link from "next/link";
 import { Info } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
+import { getTranslations } from "next-intl/server";
 
 type Props = {
   vm: Vm & { ownerName?: string };
@@ -17,6 +18,8 @@ type Props = {
 };
 
 export default async function VMCard({ vm, ownerName }: Props) {
+  const t = await getTranslations("vm.list");
+
   return (
     <Card className="w-fit">
       <CardHeader>
@@ -28,7 +31,7 @@ export default async function VMCard({ vm, ownerName }: Props) {
             {vm.ownerName && (
               <Tooltip>
                 <TooltipContent>
-                  <p>Shared by {vm.ownerName}</p>
+                  <p>{t("shared_by", { name: vm.ownerName })}</p>
                 </TooltipContent>
                 <TooltipTrigger
                   render={
@@ -46,9 +49,9 @@ export default async function VMCard({ vm, ownerName }: Props) {
         <CardDescription>{vm.status}</CardDescription>
       </CardHeader>
       <CardContent>
-        <p>IP: {vm.ip}</p>
-        <p>RAM: {vm.ram / 1024} GiB</p>
-        <p>vCPUs: {vm.cpu}</p>
+        <p>{t("ip", { ip: vm.ip })}</p>
+        <p>{t("ram", { ram: vm.ram / 1024 })}</p>
+        <p>{t("vcpus", { cpu: vm.cpu })}</p>
       </CardContent>
       {ownerName && (
         <CardFooter>

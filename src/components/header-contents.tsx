@@ -1,12 +1,17 @@
+"use client";
+
 import type { auth } from "@/lib/auth";
 import { buttonVariants } from "./ui/button";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 export function HeaderContents({
   session
 }: {
   session: Awaited<ReturnType<typeof auth.api.getSession>>;
 }) {
+  const t = useTranslations("nav");
+
   return (
     <>
       {session?.user ? (
@@ -15,13 +20,13 @@ export function HeaderContents({
             href="/vms/create"
             className={buttonVariants({ variant: "outline" })}
           >
-            Create VM
+            {t("create_vm")}
           </Link>
           <Link
             href="/profile"
             className={buttonVariants({ variant: "outline" })}
           >
-            Profile
+            {t("profile")}
           </Link>
         </>
       ) : (
@@ -29,12 +34,12 @@ export function HeaderContents({
           href="/auth/signin"
           className={buttonVariants({ variant: "outline" })}
         >
-          Sign in
+          {t("sign_in")}
         </Link>
       )}
       {session?.user.role === "admin" && (
         <Link href="/admin" className={buttonVariants({ variant: "outline" })}>
-          Admin
+          {t("admin")}
         </Link>
       )}
     </>
