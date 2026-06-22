@@ -18,10 +18,21 @@
     "start:web": "bun run --filter '@proxmox-frontend/web' start",
     "start:docs": "bun run --filter '@proxmox-frontend/docs' start",
     "lint": "bun run --filter '*' lint",
-    "clean": "bun run --filter '*' clean"
+    "clean": "bun run --filter '*' clean",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^17.0.5"
   },
   "trustedDependencies": [
     "sharp",
     "unrs-resolver"
-  ]
+  ],
+  "lint-staged": {
+    "**/*.{ts,tsx,js,jsx}": [
+      "eslint --fix --max-warnings 0",
+      "prettier --write"
+    ]
+  }
 }
