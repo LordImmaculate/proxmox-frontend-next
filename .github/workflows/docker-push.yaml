@@ -3,8 +3,10 @@ name: Build & Push Docker Image to GHCR
 # Controls when the workflow will run
 on:
   push:
-    branches: ["main"]
-  # Allows you to run this workflow manually from the Actions tab
+    branches: [main]
+    paths:
+      - "apps/web/**"
+      - ".github/workflows/docker-push.yaml"
   workflow_dispatch:
 
 # Define environment variables for the GHCR setup
