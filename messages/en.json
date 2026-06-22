@@ -151,7 +151,9 @@
       "email": "Email",
       "role_heading": "Role",
       "showing": "Showing {from} to {to} of {total} users",
-      "page": "Page {current} of {total}"
+      "page": "Page {current} of {total}",
+      "previous": "Previous",
+      "next": "Next"
     },
     "vms": {
       "total": "Total VMs",

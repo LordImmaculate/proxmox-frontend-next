@@ -151,7 +151,9 @@
       "email": "E-mail",
       "role_heading": "Rol",
       "showing": "{from} tot {to} van {total} gebruikers weergegeven",
-      "page": "Pagina {current} van {total}"
+      "page": "Pagina {current} van {total}",
+      "previous": "Vorige",
+      "next": "Volgende"
     },
     "vms": {
       "total": "Totaal VMs",
